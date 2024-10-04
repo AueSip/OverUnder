@@ -1,0 +1,32 @@
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://dgrdhmfy117nb"]
+
+[sub_resource type="AudioEffectFilter" id="AudioEffectFilter_kpokx"]
+resource_name = "Filter"
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_gklob"]
+resource_name = "Distortion"
+
+[sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_drsf5"]
+resource_name = "Phaser"
+
+[resource]
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectFilter_kpokx")
+bus/1/effect/0/enabled = false
+bus/2/name = &"MusicUnder"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectFilter_kpokx")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectDistortion_gklob")
+bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectPhaser_drsf5")
+bus/2/effect/2/enabled = true

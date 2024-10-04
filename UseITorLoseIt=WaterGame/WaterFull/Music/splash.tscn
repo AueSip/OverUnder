@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cirhasgxsar30"]
+
+[ext_resource type="AudioStream" uid="uid://bbguvms5beiiy" path="res://splash1 (online-audio-converter.com).ogg" id="1_rpdlh"]
+[ext_resource type="Script" path="res://audiopitcher.gd" id="2_p84vy"]
+[ext_resource type="Script" path="res://splashdelete.gd" id="3_xkm7w"]
+
+[node name="Splash" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_rpdlh")
+bus = &"Music"
+script = ExtResource("2_p84vy")
+pitch1 = 0.7
+pitch2 = 1.1
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("3_xkm7w")
+
+[connection signal="finished" from="." to="Node" method="_on_splash_finished"]

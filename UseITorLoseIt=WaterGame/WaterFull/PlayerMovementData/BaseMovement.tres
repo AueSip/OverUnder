@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PlayerMovementData" load_steps=2 format=3 uid="uid://cnatyaomk6ch8"]
+
+[ext_resource type="Script" path="res://PlayerMovementData/MovementData.gd" id="1_fos2w"]
+
+[resource]
+script = ExtResource("1_fos2w")
+acceleration = 300
+friction = 70
+speed = 90

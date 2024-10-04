@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://vtumex252klx"]
+
+[ext_resource type="Script" path="res://Script/water_shifter.gd" id="1_8m8k5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_em0nu"]
+radius = 3.16228
+
+[node name="Water_Shifter" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_8m8k5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_em0nu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

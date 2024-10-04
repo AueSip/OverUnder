@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bba6cadhfoa0r"]
+
+[ext_resource type="Script" path="res://Objects/Dropper/dropper.gd" id="1_5guoq"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="1_r7oe6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6tru"]
+atlas = ExtResource("1_r7oe6")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="Curve" id="Curve_ybvjp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.064, 1), 0.0, 0.0, 0, 0, Vector2(0.784, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpvac"]
+atlas = ExtResource("1_r7oe6")
+region = Rect2(64, 0, 32, 32)
+
+[node name="Dropper" type="Node2D"]
+script = ExtResource("1_5guoq")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -1)
+emitting = false
+amount = 15
+lifetime = 3.0
+one_shot = true
+randomness = 1.0
+lifetime_randomness = 0.3
+fixed_fps = 60
+texture = SubResource("AtlasTexture_f6tru")
+emission_shape = 3
+emission_rect_extents = Vector2(5, 1)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_ybvjp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+texture = SubResource("AtlasTexture_mpvac")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

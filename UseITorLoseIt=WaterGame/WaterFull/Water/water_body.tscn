@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://g3iwnh7xsxh6"]
+
+[ext_resource type="Script" path="res://Script/water_body.gd" id="1_0pyfa"]
+[ext_resource type="Shader" path="res://Shaders/Water.gdshader" id="2_v7m8d"]
+[ext_resource type="Script" path="res://Script/smooth_path_modified.gd" id="3_vf51r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r50va"]
+shader = ExtResource("2_v7m8d")
+shader_parameter/tint = Color(0, 0.45098, 0.823529, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_upreu"]
+
+[node name="Water_body" type="Node2D"]
+script = ExtResource("1_0pyfa")
+spring_number = 12
+border_thickness = 0.5
+
+[node name="water_polygon" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_r50va")
+
+[node name="water_border" type="Path2D" parent="."]
+texture_filter = 1
+curve = SubResource("Curve2D_upreu")
+script = ExtResource("3_vf51r")

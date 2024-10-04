@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://wccd13ev1iqd"]
+
+[ext_resource type="Script" path="res://Script/MainUi.gd" id="1_eu842"]
+[ext_resource type="FontFile" uid="uid://d0eywg6hhd60a" path="res://Font/dpcomic.ttf" id="2_3h37g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwh1u"]
+bg_color = Color(0.254902, 0, 0.886275, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.92549, 0.827451, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_size = 3
+shadow_offset = Vector2(1, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4k0tl"]
+bg_color = Color(0, 0.635294, 0.964706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.92549, 0.827451, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[node name="MainUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eu842")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 15)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 104.0
+offset_right = 104.0
+offset_bottom = 119.0
+rotation = -1.5708
+theme_override_styles/background = SubResource("StyleBoxFlat_kwh1u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4k0tl")
+value = 100.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 2.0
+offset_top = 90.0
+offset_right = 59.0
+offset_bottom = 113.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/normal_font = ExtResource("2_3h37g")
+theme_override_font_sizes/normal_font_size = 25
+text = "Water"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

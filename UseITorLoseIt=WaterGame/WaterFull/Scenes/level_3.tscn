@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://qu337kkq460k"]
+
+[ext_resource type="PackedScene" uid="uid://cacsucd8jd8dp" path="res://Scenes/Level_Base.tscn" id="1_emnu7"]
+[ext_resource type="PackedScene" uid="uid://cucdy1gdq50pi" path="res://Objects/Valve/valve.tscn" id="2_c04rn"]
+[ext_resource type="PackedScene" uid="uid://ccs0km0eobpbo" path="res://KeyUnlock/key_unlock.tscn" id="3_4wr7o"]
+
+[node name="Level_Base" instance=ExtResource("1_emnu7")]
+level_name = "level_3"
+max_capacity = 1300
+
+[node name="TileMap" parent="." index="1"]
+layer_1/tile_data = PackedInt32Array(524292, 0, 10, 524293, 131072, 10, 458757, 131072, 10, 458756, 0, 10, 393220, 0, 10, 327684, 0, 10, 262148, 0, 9, 262149, 131072, 9, 327685, 131072, 10, 393221, 131072, 10, 589828, 0, 10, 655364, 0, 11, 655365, 131072, 11, 589829, 131072, 10, 786445, 524288, 9, 720909, 0, 0, 655373, 524288, 11, 589837, 524288, 9, 851981, 524288, 11, 524301, 0, 0, 327693, 524288, 11, 262157, 131072, 9, 65545, 524288, 10, 131081, 524288, 10, 196617, 524288, 10, 262153, 524288, 11, 262154, 327680, 9, 262155, 327680, 9, 262156, 327680, 9, 9, 524288, 9, 196625, 0, 9, 196626, 65536, 9, 196627, 65536, 9, 196628, 65536, 9, 196629, 65536, 9, 196630, 65536, 9, 196631, 131072, 9, 262161, 0, 11, 262162, 65536, 11, 262163, 65536, 11, 262164, 65536, 11, 262165, 65536, 11, 262166, 65536, 11, 262167, 131072, 11, 524305, 65536, 9, 524304, 0, 9, 589840, 0, 11, 589841, 65536, 11, 589842, 131072, 11, 524306, 131072, 9, 262150, 327680, 9, 262151, 327680, 9, 262152, 327680, 9)
+
+[node name="Valve2" parent="." index="3" node_paths=PackedStringArray("Main") instance=ExtResource("2_c04rn")]
+position = Vector2(129, 115)
+Main = NodePath("..")
+
+[node name="Valve3" parent="." index="4" node_paths=PackedStringArray("Main") instance=ExtResource("2_c04rn")]
+position = Vector2(289, 240)
+Main = NodePath("..")
+
+[node name="KeyUnlock" parent="." index="8"]
+position = Vector2(440, 40)
+
+[node name="KeyUnlock2" parent="." index="9" node_paths=PackedStringArray("player") instance=ExtResource("3_4wr7o")]
+position = Vector2(200, 240)
+player = NodePath("../CharacterBody2D")
+
+[node name="KeyUnlock3" parent="." index="10" node_paths=PackedStringArray("player") instance=ExtResource("3_4wr7o")]
+position = Vector2(224, 64)
+player = NodePath("../CharacterBody2D")
+
+[node name="KeyUnlock4" parent="." index="11" node_paths=PackedStringArray("player") instance=ExtResource("3_4wr7o")]
+position = Vector2(352, 144)
+player = NodePath("../CharacterBody2D")
+
+[node name="Door" parent="." index="12"]
+position = Vector2(152, 64)
+required_keys = 4
+
+[node name="CharacterBody2D" parent="." index="16"]
+position = Vector2(328, 248)
+
+[editable path="CanvasLayer/Control"]

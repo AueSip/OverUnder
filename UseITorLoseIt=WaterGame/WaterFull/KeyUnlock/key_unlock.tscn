@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccs0km0eobpbo"]
+
+[ext_resource type="Script" path="res://Script/KeyUnlock.gd" id="1_el8mw"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="2_6qp15"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxkrj"]
+atlas = ExtResource("2_6qp15")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v2c6e"]
+radius = 8.0
+height = 26.0
+
+[node name="KeyUnlock" type="Node2D"]
+script = ExtResource("1_el8mw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_xxkrj")
+
+[node name="ObjectArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectArea"]
+shape = SubResource("CapsuleShape2D_v2c6e")
+
+[connection signal="body_entered" from="ObjectArea" to="." method="_on_object_area_body_entered"]

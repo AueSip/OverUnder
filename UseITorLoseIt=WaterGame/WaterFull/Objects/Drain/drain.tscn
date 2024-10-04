@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://dl3tuhpcscov6"]
+
+[ext_resource type="Script" path="res://Objects/Drain/drain.gd" id="1_5o8gq"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="1_xaerb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2ceo"]
+atlas = ExtResource("1_xaerb")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic4pr"]
+atlas = ExtResource("1_xaerb")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2cm3i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2ceo")
+}],
+"loop": true,
+"name": &"Closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic4pr")
+}],
+"loop": true,
+"name": &"Open",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqkgv"]
+atlas = ExtResource("1_xaerb")
+region = Rect2(128, 32, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu5g5"]
+atlas = ExtResource("1_xaerb")
+region = Rect2(160, 32, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1s5qe"]
+atlas = ExtResource("1_xaerb")
+region = Rect2(192, 32, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahbxs"]
+atlas = ExtResource("1_xaerb")
+region = Rect2(224, 32, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtl6u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqkgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu5g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1s5qe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahbxs")
+}],
+"loop": false,
+"name": &"Whirl",
+"speed": 5.0
+}]
+
+[node name="Drain" type="Node2D"]
+script = ExtResource("1_5o8gq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+rotation = -1.57079
+sprite_frames = SubResource("SpriteFrames_2cm3i")
+animation = &"Open"
+
+[node name="DrainWhirl" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -15)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_dtl6u")
+animation = &"Whirl"
+frame = 3
+frame_progress = 1.0

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cripdd4urrva7"]
+
+[ext_resource type="Script" path="res://Script/door.gd" id="1_2vgal"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="2_j6uu2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgwf2"]
+atlas = ExtResource("2_j6uu2")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uq2e7"]
+radius = 8.0
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_2vgal")
+
+[node name="DoorSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_qgwf2")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_uq2e7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://scfgmvtbqn05"]
+
+[ext_resource type="PackedScene" uid="uid://cacsucd8jd8dp" path="res://Scenes/Level_Base.tscn" id="1_ivcr5"]
+[ext_resource type="PackedScene" uid="uid://cucdy1gdq50pi" path="res://Objects/Valve/valve.tscn" id="2_u7lq2"]
+[ext_resource type="PackedScene" uid="uid://ccs0km0eobpbo" path="res://KeyUnlock/key_unlock.tscn" id="3_hj0cl"]
+
+[node name="Level_Base" instance=ExtResource("1_ivcr5")]
+max_capacity = 1300
+
+[node name="TileMap" parent="." index="1"]
+layer_1/tile_data = PackedInt32Array(524296, 0, 10, 589832, 0, 10, 655368, 0, 10, 720904, 0, 10, 786440, 0, 10, 851976, 0, 11, 851977, 131072, 11, 786441, 131072, 10, 720905, 131072, 10, 655369, 131072, 10, 589833, 131072, 10, 524297, 131072, 10, 458760, 0, 10, 393224, 0, 10, 327688, 0, 9, 327689, 131072, 9, 393225, 131072, 10, 458761, 131072, 10, 262167, 131072, 9, 262166, 65536, 9, 262165, 65536, 9, 262164, 65536, 9, 262163, 65536, 9, 262162, 65536, 9, 262161, 65536, 9, 262160, 0, 9, 327696, 0, 11, 327697, 65536, 11, 327698, 65536, 11, 327699, 65536, 11, 327700, 65536, 11, 327701, 65536, 11, 327702, 65536, 11, 327703, 131072, 11)
+
+[node name="Valve2" parent="." index="3" node_paths=PackedStringArray("Main") instance=ExtResource("2_u7lq2")]
+position = Vector2(29, 240)
+rotation = -6.28318
+Main = NodePath("..")
+
+[node name="KeyUnlock2" parent="." index="8" node_paths=PackedStringArray("player") instance=ExtResource("3_hj0cl")]
+position = Vector2(136, 245)
+player = NodePath("../CharacterBody2D")
+
+[node name="Door" parent="." index="9"]
+position = Vector2(392, 245)
+required_keys = 2
+
+[node name="Level_Select2" parent="CanvasLayer/Control/Panel/HBoxContainer" index="1"]
+Level = "res://Scenes/level_2.tscn"
+
+[editable path="CanvasLayer/Control"]

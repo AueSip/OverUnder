@@ -1,0 +1,130 @@
+[gd_scene load_steps=14 format=3 uid="uid://muow6ng6hqhh"]
+
+[ext_resource type="Script" path="res://Script/Player.gd" id="1_jba23"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="1_xj5ca"]
+[ext_resource type="Resource" uid="uid://cnatyaomk6ch8" path="res://PlayerMovementData/BaseMovement.tres" id="2_t3xux"]
+[ext_resource type="Script" path="res://Player/InteractEmitter.gd" id="4_vl5xp"]
+[ext_resource type="Script" path="res://Player/KeyTracker.gd" id="5_dyhvq"]
+[ext_resource type="Script" path="res://Script/OxygenBar.gd" id="6_ry834"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2git0"]
+atlas = ExtResource("1_xj5ca")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gh45a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2git0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3pwsk"]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kx5cq"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h6uc2"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5qf12"]
+radius = 3.16228
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5kxeb"]
+radius = 15.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 17
+floor_constant_speed = true
+script = ExtResource("1_jba23")
+playerMovement = ExtResource("2_t3xux")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -17)
+sprite_frames = SubResource("SpriteFrames_gh45a")
+offset = Vector2(0, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+rotation = 3.14159
+shape = SubResource("CapsuleShape2D_3pwsk")
+
+[node name="WaterDetector" type="Area2D" parent="."]
+position = Vector2(0, -15)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetector"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_kx5cq")
+
+[node name="FloatCheck" type="Area2D" parent="."]
+position = Vector2(0, -11)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloatCheck"]
+shape = SubResource("CapsuleShape2D_h6uc2")
+
+[node name="WaterCheck" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="OxygenDetector" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OxygenDetector"]
+position = Vector2(0, -23)
+shape = SubResource("CircleShape2D_5qf12")
+
+[node name="InteractEmitter" type="Area2D" parent="." groups=["interact"]]
+position = Vector2(0, -8)
+collision_layer = 10
+collision_mask = 4
+monitoring = false
+script = ExtResource("4_vl5xp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractEmitter"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_5kxeb")
+
+[node name="Key" type="Node" parent="."]
+script = ExtResource("5_dyhvq")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+self_modulate = Color(0, 0.752941, 0.168627, 1)
+z_index = 5
+offset_left = -16.0
+offset_top = -43.0
+offset_right = 17.0
+offset_bottom = -35.0
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("6_ry834")
+
+[node name="OxygenTimer" type="Timer" parent="ProgressBar"]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="exited_water" from="." to="." method="_on_exited_water"]
+[connection signal="area_entered" from="WaterDetector" to="." method="_on_water_detector_area_entered"]
+[connection signal="area_exited" from="WaterDetector" to="." method="_on_water_detector_area_exited"]
+[connection signal="area_entered" from="FloatCheck" to="." method="_on_float_check_area_entered"]
+[connection signal="area_exited" from="FloatCheck" to="." method="_on_float_check_area_exited"]
+[connection signal="timeout" from="WaterCheck" to="." method="_on_water_check_timeout"]
+[connection signal="area_entered" from="OxygenDetector" to="." method="_on_oxygen_detector_area_entered"]
+[connection signal="area_exited" from="OxygenDetector" to="." method="_on_oxygen_detector_area_exited"]
+[connection signal="value_changed" from="ProgressBar" to="." method="_on_progress_bar_value_changed"]
+[connection signal="timeout" from="ProgressBar/OxygenTimer" to="ProgressBar" method="_on_oxygen_timer_timeout"]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://bu5g1ialoe4al"]
+
+[ext_resource type="Texture2D" uid="uid://dcl56cy1lvg4x" path="res://Water/pngfind.com-bouncy-ball-png-4775194.png" id="1_43ing"]
+[ext_resource type="Script" path="res://Script/water_spring.gd" id="1_l7jmp"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="3_vgf82"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6l1ak"]
+size = Vector2(20, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb23l"]
+atlas = ExtResource("3_vgf82")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="Curve" id="Curve_dabf2"]
+_data = [Vector2(0, 0.0765271), 0.0, 0.0, 0, 0, Vector2(0.296, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00514758), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Water_Spring" type="Node2D"]
+script = ExtResource("1_l7jmp")
+
+[node name="JointSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("1_43ing")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 34
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6l1ak")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 1.0
+texture = SubResource("AtlasTexture_xb23l")
+emission_shape = 3
+emission_rect_extents = Vector2(4, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 400)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_curve = SubResource("Curve_dabf2")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

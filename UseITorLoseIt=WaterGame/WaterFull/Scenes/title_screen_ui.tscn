@@ -1,0 +1,454 @@
+[gd_scene load_steps=30 format=3 uid="uid://ddeo5rkay7lym"]
+
+[ext_resource type="FontFile" uid="uid://d0eywg6hhd60a" path="res://Font/dpcomic.ttf" id="1_mb48m"]
+[ext_resource type="Script" path="res://Script/title_screen_ui.gd" id="1_ty010"]
+[ext_resource type="Script" path="res://Script/Level_Select.gd" id="2_c3gge"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="3_ivaw7"]
+[ext_resource type="PackedScene" uid="uid://g3iwnh7xsxh6" path="res://Water/water_body.tscn" id="4_cox60"]
+[ext_resource type="PackedScene" uid="uid://gjmfo6nuqrqs" path="res://Scenes/title_screen.tscn" id="5_fda45"]
+[ext_resource type="PackedScene" uid="uid://sb7kdo0sps0q" path="res://MainUi/pauseMenu.tscn" id="5_pl048"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aiiac"]
+load_path = "res://.godot/imported/WaterFillingTileset.png-95b6d71cf486bb83a90d5ec637547aa9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i1ri"]
+atlas = SubResource("CompressedTexture2D_aiiac")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g5jx"]
+atlas = SubResource("CompressedTexture2D_aiiac")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_207eu"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_645f6"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7p00"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l14yq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_207eu")
+}],
+"loop": true,
+"name": &"Broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_645f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7p00")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2avai"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_way3v"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r36rd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2avai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_way3v")
+}],
+"loop": false,
+"name": &"Broken",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jd1c"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="Curve" id="Curve_jjo7n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.064, 1), 0.0, 0.0, 0, 0, Vector2(0.784, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk8mn"]
+atlas = ExtResource("3_ivaw7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_dcqbf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water_body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, 255)]
+}
+
+[sub_resource type="Animation" id="Animation_j6vdd"]
+resource_name = "TitleScreen"
+length = 4.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water_body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 255), Vector2(0, -2.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Suction:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5j3w"]
+_data = {
+"RESET": SubResource("Animation_dcqbf"),
+"TitleScreen": SubResource("Animation_j6vdd")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_287x2"]
+bg_color = Color(0.0156863, 0.227451, 0.458824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1kl6f"]
+bg_color = Color(0.0509804, 0.376471, 0.72549, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f57u"]
+bg_color = Color(0.0156863, 0.227451, 0.458824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52q6l"]
+bg_color = Color(0.54902, 0.333333, 0.12549, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu3sn"]
+bg_color = Color(0.392157, 0.231373, 0.0745098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhce8"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[node name="TitleScreen_Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ty010")
+
+[node name="TitleScreen" parent="." instance=ExtResource("5_fda45")]
+
+[node name="Sprite2D2" type="Sprite2D" parent="TitleScreen"]
+position = Vector2(182, 24)
+rotation = 0.523598
+texture = SubResource("AtlasTexture_1i1ri")
+
+[node name="Sprite2D3" type="Sprite2D" parent="TitleScreen"]
+position = Vector2(304, 24)
+rotation = -0.523598
+texture = SubResource("AtlasTexture_0g5jx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TitleScreen"]
+texture_filter = 1
+position = Vector2(316, 30)
+rotation = 1.57079
+sprite_frames = SubResource("SpriteFrames_l14yq")
+animation = &"running"
+autoplay = "running"
+
+[node name="Suction" type="AnimatedSprite2D" parent="TitleScreen"]
+texture_filter = 1
+position = Vector2(240, 255)
+rotation = -1.57079
+sprite_frames = SubResource("SpriteFrames_r36rd")
+animation = &"Broken"
+
+[node name="Dropper" type="Node2D" parent="TitleScreen"]
+position = Vector2(167, 25)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="TitleScreen/Dropper"]
+texture_filter = 1
+position = Vector2(0, -1)
+amount = 15
+lifetime = 3.0
+randomness = 1.0
+lifetime_randomness = 0.3
+fixed_fps = 60
+texture = SubResource("AtlasTexture_2jd1c")
+emission_shape = 3
+emission_rect_extents = Vector2(5, 1)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_jjo7n")
+
+[node name="Sprite2D4" type="Sprite2D" parent="TitleScreen/Dropper"]
+texture_filter = 1
+rotation = 1.5708
+texture = SubResource("AtlasTexture_kk8mn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_j5j3w")
+}
+autoplay = "TitleScreen"
+speed_scale = 0.1
+
+[node name="Water_body" parent="TitleScreen" instance=ExtResource("4_cox60")]
+top_level = true
+position = Vector2(19, 255)
+spring_number = 16
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Play" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -22.5
+offset_right = 35.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0.705882, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_287x2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1kl6f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6f57u")
+text = "Play"
+
+[node name="Settings" type="Button" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -46.0
+offset_right = 87.0
+offset_bottom = -19.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_52q6l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_52q6l")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bu3sn")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_52q6l")
+text = "Options"
+
+[node name="Levels" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Levels"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Levels/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Lvl_1" type="Button" parent="CanvasLayer/Levels/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhce8")
+text = " 1 "
+script = ExtResource("2_c3gge")
+Level = "res://Scenes/level_1.tscn"
+
+[node name="Lvl_4" type="Button" parent="CanvasLayer/Levels/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhce8")
+disabled = true
+text = "4"
+script = ExtResource("2_c3gge")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Levels/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Lvl_2" type="Button" parent="CanvasLayer/Levels/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhce8")
+disabled = true
+text = " 2 "
+script = ExtResource("2_c3gge")
+Level = "res://Scenes/level_2.tscn"
+
+[node name="Lvl_5" type="Button" parent="CanvasLayer/Levels/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhce8")
+disabled = true
+text = " 5 "
+script = ExtResource("2_c3gge")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Levels/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="Lvl_3" type="Button" parent="CanvasLayer/Levels/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhce8")
+disabled = true
+text = " 3 "
+script = ExtResource("2_c3gge")
+Level = "res://Scenes/level_3.tscn"
+
+[node name="Lvl_6" type="Button" parent="CanvasLayer/Levels/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mb48m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhce8")
+disabled = true
+text = "6"
+script = ExtResource("2_c3gge")
+
+[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("5_pl048")]
+
+[node name="Level_Select" parent="CanvasLayer/pauseMenu/Panel/HBoxContainer" index="1"]
+visible = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -115.0
+offset_right = 57.5
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.788235, 0.858824, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("1_mb48m")
+theme_override_font_sizes/normal_font_size = 25
+text = " Over||Under 
+     Flow"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[connection signal="pressed" from="CanvasLayer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Settings" to="." method="_on_settings_pressed"]
+
+[editable path="CanvasLayer/pauseMenu"]

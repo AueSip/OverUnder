@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://cucdy1gdq50pi"]
+
+[ext_resource type="Script" path="res://Objects/Valve/valve.gd" id="1_6lltj"]
+[ext_resource type="Texture2D" uid="uid://4ii8rka31j0u" path="res://Texture/WaterFillingTileset.png" id="1_ppsvg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_207eu"]
+atlas = ExtResource("1_ppsvg")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_645f6"]
+atlas = ExtResource("1_ppsvg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7p00"]
+atlas = ExtResource("1_ppsvg")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0bf44"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_207eu")
+}],
+"loop": true,
+"name": &"Broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_645f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7p00")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_usdu3"]
+radius = 21.095
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7xec"]
+atlas = ExtResource("1_ppsvg")
+region = Rect2(32, 96, 32, 32)
+
+[node name="Valve" type="Node2D"]
+script = ExtResource("1_6lltj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0bf44")
+animation = &"running"
+autoplay = "running"
+
+[node name="InteractDetector" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractDetector"]
+shape = SubResource("CircleShape2D_usdu3")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(8, 0)
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+texture = SubResource("AtlasTexture_n7xec")
+direction = Vector2(1, -5)
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
+angular_velocity_min = 50.0
+angular_velocity_max = 100.0
+
+[connection signal="area_entered" from="InteractDetector" to="." method="_on_interact_detector_area_entered"]
